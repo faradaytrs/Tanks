@@ -5,6 +5,6 @@ package map;
  */
 public enum Cell {
 
-	TANK, CELL, SPACE, BULLET
+	TANK, WALL, SPACE, BULLET
 
 }
