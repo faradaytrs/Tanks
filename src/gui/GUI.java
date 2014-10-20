@@ -1,6 +1,9 @@
 package gui;
 
+import map.Map;
+
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -13,7 +16,11 @@ public class GUI extends JFrame implements KeyListener {
 	public static final int width = 500;
 	public static final int height = 500;
 
-	public GUI() {
+	private Map map;
+
+	public GUI(Map map) {
+
+		this.map = map;
 
 		setSize(width, height);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -22,6 +29,25 @@ public class GUI extends JFrame implements KeyListener {
 		setVisible(true);
 
 	}
+
+	public void paint(Graphics g) {
+
+		renderMap(map, g);
+
+		g.fillRect(50, 50, 50, 50);
+
+	}
+
+	public void render() {
+		repaint();
+	}
+
+	public void renderMap(Map map, Graphics g) {
+
+
+
+	}
+
 
 	@Override
 	public void keyTyped(KeyEvent e) {

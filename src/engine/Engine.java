@@ -1,6 +1,7 @@
 package engine;
 
 import gui.GUI;
+import map.Map;
 
 /**
  * Created by Andrey Izotov on 20.10.2014.
@@ -8,10 +9,13 @@ import gui.GUI;
 public class Engine{
 
 	private GUI gui;
+	private Map map;
 
 	public Engine() {
 
-		gui = new GUI();
+		map = new Map(50, 50);
+
+		gui = new GUI(map);
 
 	}
 
@@ -21,7 +25,7 @@ public class Engine{
 
 		while (isGameUp) {
 
-
+			gui.render();
 
 		}
 
