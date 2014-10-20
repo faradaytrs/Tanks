@@ -1,5 +1,6 @@
 package map;
 
+import map.exceptions.NotSwappableObjectException;
 import map.exceptions.OutOfBorderException;
 
 /**
@@ -41,10 +42,14 @@ public class Map {
 
 	}
 
-	public void swapCells(int i1, int j1, int i2, int j2) throws OutOfBorderException {
+	public void swapCells(int i1, int j1, int i2, int j2) throws OutOfBorderException, NotSwappableObjectException {
 
 		if (i2 >= width || i2 < 0 || j2 >= height || j2 < 0) {
 			throw new OutOfBorderException();
+		}
+
+		if (field[i2][j2] == Cell.TANK || field[i2][j2] == Cell.WALL) {
+			throw new NotSwappableObjectException();
 		}
 
 		Cell buffer;

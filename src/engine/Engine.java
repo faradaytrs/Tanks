@@ -2,6 +2,7 @@ package engine;
 
 import gui.GUI;
 import map.Map;
+import map.exceptions.NotSwappableObjectException;
 import map.exceptions.OutOfBorderException;
 
 /**
@@ -62,7 +63,9 @@ public class Engine {
 			tankLocation = new Location(tankLocation.getX() - 1, tankLocation.getY());
 
 		} catch (OutOfBorderException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+		} catch (NotSwappableObjectException e) {
+			//e.printStackTrace();
 		} finally {
 			gui.movingLeft = false;
 		}
@@ -82,7 +85,9 @@ public class Engine {
 			tankLocation = new Location(tankLocation.getX() + 1, tankLocation.getY());
 
 		} catch (OutOfBorderException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+		} catch (NotSwappableObjectException e) {
+			//e.printStackTrace();
 		} finally {
 			gui.movingRight = false;
 		}
@@ -100,7 +105,9 @@ public class Engine {
 
 			tankLocation = new Location(tankLocation.getX(), tankLocation.getY() + 1);
 		} catch (OutOfBorderException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+		} catch (NotSwappableObjectException e) {
+			//e.printStackTrace();
 		} finally {
 			gui.movingUp = false;
 		}
@@ -121,7 +128,9 @@ public class Engine {
 			tankLocation = new Location(tankLocation.getX(), tankLocation.getY() - 1);
 
 		} catch (OutOfBorderException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+		} catch (NotSwappableObjectException e) {
+			//e.printStackTrace();
 		} finally {
 			gui.movingDown = false;
 		}
