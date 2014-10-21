@@ -2,6 +2,8 @@ package map;
 
 import map.exceptions.NotSwappableObjectException;
 import map.exceptions.OutOfBorderException;
+import map.exceptions.CellOccupiedException;
+import objects.IGameObject;
 
 /**
  * Created by Andrey Izotov on 20.10.2014.
@@ -36,8 +38,6 @@ public class Map {
 			}
 		}
 
-		field[5][5] = Cell.TANK;
-
 		return field;
 
 	}
@@ -59,6 +59,17 @@ public class Map {
 		field[i2][j2] = buffer;
 
 	}
+
+    public void addElement( IGameObject obj ) throws CellOccupiedException{
+        int x = obj.getLocation().getX();
+        int y = obj.getLocation().getY();
+        if( field[x][y] == Cell.SPACE){
+            field[x][y] = obj.getType();
+        }
+        else{
+            throw new CellOccupiedException();
+        }
+    }
 
 
 }

@@ -44,8 +44,6 @@ public class GUI extends JFrame implements KeyListener {
 
 		renderMap(map, g);
 
-		g.fillRect(50, 50, 50, 50);
-
 	}
 
 	public void render() {
@@ -62,9 +60,7 @@ public class GUI extends JFrame implements KeyListener {
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
 
-				if (i==3 && j==5) {
-					field[i][j] = Cell.TANK;
-				}
+
 
 				switch(field[i][j]) {
 

@@ -1,9 +1,12 @@
 package engine;
 
 import gui.GUI;
+import map.Location;
 import map.Map;
+import map.exceptions.CellOccupiedException;
 import map.exceptions.NotSwappableObjectException;
 import map.exceptions.OutOfBorderException;
+import objects.*;
 
 /**
  * Created by Andrey Izotov on 20.10.2014.
@@ -12,8 +15,8 @@ public class Engine {
 
 	private GUI gui;
 	private Map map;
-
-	Location tankLocation = new Location(5, 5);
+    private Tank MyTank;
+    private Location tankLocation;
 
 	public Engine() {
 
@@ -21,7 +24,15 @@ public class Engine {
 
 		gui = new GUI(map);
 
-	}
+        MyTank = new Tank(new Location(5, 5));
+        tankLocation = MyTank.getLocation();
+        try {
+            map.addElement(MyTank);
+        } catch (CellOccupiedException e) {
+            //e.printStackTrace();
+        }
+
+    }
 
 	public void start() {
 

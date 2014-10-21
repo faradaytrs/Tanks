@@ -1,4 +1,4 @@
-package engine;
+package map;
 
 /**
  * Created by Andrey Izotov on 20.10.2014.
