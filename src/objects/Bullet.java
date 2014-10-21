@@ -1,22 +1,21 @@
 package objects;
 
-import map.*;
+import map.Cell;
+import map.Location;
 
 /**
  * Created by андрей on 21.10.2014.
  */
-public class Tank implements IGameObject {
+public class Bullet implements IGameObject{
 
     private Location location;
 
     private Direction direction;
 
-    public Tank(Location location){
-
-        setLocation(location);
-        direction = Direction.UP;
+    public Bullet(Location location, Direction direction) {
+        this.location = location;
+        this.direction = direction;
     }
-
 
     public Direction getDirection() {
         return direction;
@@ -25,7 +24,6 @@ public class Tank implements IGameObject {
     public void setDirection(Direction direction) {
         this.direction = direction;
     }
-
 
     @Override
     public Location getLocation() {
@@ -38,8 +36,8 @@ public class Tank implements IGameObject {
     }
 
     @Override
-    public Cell getType(){
-        return Cell.TANK;
+    public Cell getType() {
+        return Cell.BULLET;
     }
 
 

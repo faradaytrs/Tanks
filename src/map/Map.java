@@ -63,13 +63,18 @@ public class Map {
     public void addElement( IGameObject obj ) throws CellOccupiedException{
         int x = obj.getLocation().getX();
         int y = obj.getLocation().getY();
-        if( field[x][y] == Cell.SPACE){
+        if( field[x][y] == Cell.SPACE || field[x][y] == Cell.BULLET){
             field[x][y] = obj.getType();
         }
         else{
             throw new CellOccupiedException();
         }
     }
+
+    public void deleteElement(Location loc){
+        field[loc.getX()][loc.getY()] = Cell.SPACE;
+    }
+
 
 
 }

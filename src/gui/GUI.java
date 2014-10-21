@@ -23,6 +23,7 @@ public class GUI extends JFrame implements KeyListener {
 	public static boolean movingRight = false;
 	public static boolean movingUp = false;
 	public static boolean movingDown = false;
+    public static boolean shooting = false;
 
 	private Map map;
 
@@ -72,6 +73,8 @@ public class GUI extends JFrame implements KeyListener {
 						break;
 					case WALL:
 						g.setColor(new Color(0xA1782E));
+                    case BULLET:
+                        g.setColor(new Color(0x4B35DA));
 
 				}
 
@@ -92,6 +95,7 @@ public class GUI extends JFrame implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 
 		int code = e.getKeyCode();
+        //System.out.println(code);
 
 		switch (code) {
 
@@ -106,6 +110,14 @@ public class GUI extends JFrame implements KeyListener {
 				break;
 			case 83:
 				movingUp = true;
+                break;
+
+            //Shooting on SPACE
+
+            case 32:
+                shooting = true;
+                break;
+
 
 		}
 

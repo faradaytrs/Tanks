@@ -3,7 +3,7 @@ package objects;
 /**
  * Created by андрей on 21.10.2014.
  */
-public enum Look {
+public enum Direction {
 
     UP, RIGHT, DOWN, LEFT
 

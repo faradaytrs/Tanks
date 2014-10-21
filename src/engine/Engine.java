@@ -1,5 +1,8 @@
 package engine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import gui.GUI;
 import map.Location;
 import map.Map;
@@ -15,8 +18,8 @@ public class Engine {
 
 	private GUI gui;
 	private Map map;
-    private Tank MyTank;
-    private Location tankLocation;
+    private Tank myTank;
+    private List<Bullet> bullets = new ArrayList<Bullet>();
 
 	public Engine() {
 
@@ -24,10 +27,11 @@ public class Engine {
 
 		gui = new GUI(map);
 
-        MyTank = new Tank(new Location(5, 5));
-        tankLocation = MyTank.getLocation();
+        myTank = new Tank(new Location(5, 5));
+
+
         try {
-            map.addElement(MyTank);
+            map.addElement(myTank);
         } catch (CellOccupiedException e) {
             //e.printStackTrace();
         }
@@ -54,12 +58,65 @@ public class Engine {
 			moveLeft(gui);
 			moveUp(gui);
 			moveRight(gui);
-
+            shot(myTank);
+            for(Bullet bullet: bullets)
+                moveBullet(bullet);
 			gui.render();
 
 		}
 
 	}
+
+    private void shot(Tank tank){
+        if(gui.shooting){
+            Bullet bullet = new Bullet(checkDirection(tank), tank.getDirection());
+            bullets.add(bullet);
+            try {
+                map.addElement(bullet);
+            } catch (CellOccupiedException e) {
+                e.printStackTrace();
+            }
+        }
+        gui.shooting = false;
+
+    }
+
+    private Location checkDirection(IGameObject obj){
+        int dx = 0, dy = 0;
+        switch(obj.getDirection()){
+            case UP:
+                dy = 1;
+                break;
+            case DOWN:
+                dy = -1;
+                break;
+            case RIGHT:
+                dx = 1;
+                break;
+            case LEFT:
+                dx = -1;
+                break;
+        }
+        return new Location(obj.getLocation().getX() + dx, obj.getLocation().getY() + dy);
+    }
+
+
+    private void moveBullet(Bullet bullet){
+
+        int x = checkDirection(bullet).getX();
+        int y = checkDirection(bullet).getY();
+
+        map.deleteElement(bullet.getLocation());
+
+        if( x  > 0 && x < map.width && y > 0 && y  < map.height ) {
+            bullet.setLocation(new Location(x, y));
+            try {
+                map.addElement(bullet);
+            } catch (CellOccupiedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 	private void moveLeft(GUI gui) {
 
@@ -69,9 +126,12 @@ public class Engine {
 
 		try {
 
+            Location tankLocation = myTank.getLocation();
+
 			map.swapCells(tankLocation.getX(), tankLocation.getY(), tankLocation.getX() - 1, tankLocation.getY());
 
-			tankLocation = new Location(tankLocation.getX() - 1, tankLocation.getY());
+			myTank.setLocation( new Location(tankLocation.getX() - 1, tankLocation.getY()));
+            myTank.setDirection(Direction.LEFT);
 
 		} catch (OutOfBorderException e) {
 			//e.printStackTrace();
@@ -90,10 +150,12 @@ public class Engine {
 		//todo add check if cell on border
 
 		try {
+            Location tankLocation = myTank.getLocation();
 
 			map.swapCells(tankLocation.getX(), tankLocation.getY(), tankLocation.getX() + 1, tankLocation.getY());
 
-			tankLocation = new Location(tankLocation.getX() + 1, tankLocation.getY());
+            myTank.setLocation(new Location(tankLocation.getX() + 1, tankLocation.getY()));
+            myTank.setDirection(Direction.RIGHT);
 
 		} catch (OutOfBorderException e) {
 			//e.printStackTrace();
@@ -112,9 +174,12 @@ public class Engine {
 		//todo add check if cell on border
 
 		try {
+
+            Location tankLocation = myTank.getLocation();
 			map.swapCells(tankLocation.getX(), tankLocation.getY(), tankLocation.getX(), tankLocation.getY() + 1);
 
-			tankLocation = new Location(tankLocation.getX(), tankLocation.getY() + 1);
+            myTank.setLocation( new Location(tankLocation.getX(), tankLocation.getY() + 1));
+            myTank.setDirection(Direction.UP);
 		} catch (OutOfBorderException e) {
 			//e.printStackTrace();
 		} catch (NotSwappableObjectException e) {
@@ -134,9 +199,12 @@ public class Engine {
 
 		try {
 
+            Location tankLocation = myTank.getLocation();
+
 			map.swapCells(tankLocation.getX(), tankLocation.getY(), tankLocation.getX(), tankLocation.getY() - 1);
 
-			tankLocation = new Location(tankLocation.getX(), tankLocation.getY() - 1);
+            myTank.setLocation( new Location(tankLocation.getX(), tankLocation.getY() - 1));
+            myTank.setDirection(Direction.DOWN);
 
 		} catch (OutOfBorderException e) {
 			//e.printStackTrace();

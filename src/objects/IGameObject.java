@@ -10,5 +10,6 @@ public interface IGameObject {
     public Location getLocation();
     public void setLocation(Location location);
     public Cell getType();
+    public Direction getDirection();
 
 }
