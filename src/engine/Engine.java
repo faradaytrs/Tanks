@@ -1,15 +1,18 @@
 package engine;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import gui.GUI;
 import map.Location;
 import map.Map;
 import map.exceptions.CellOccupiedException;
 import map.exceptions.NotSwappableObjectException;
 import map.exceptions.OutOfBorderException;
-import objects.*;
+import objects.Bullet;
+import objects.Direction;
+import objects.IGameObject;
+import objects.Tank;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Andrey Izotov on 20.10.2014.
@@ -19,7 +22,7 @@ public class Engine {
 	private GUI gui;
 	private Map map;
     private Tank myTank;
-    private List<Bullet> bullets = new ArrayList<Bullet>();
+    private List<Bullet> bullets = new ArrayList<>();
 
 	public Engine() {
 
@@ -47,7 +50,7 @@ public class Engine {
 			//delay
 
 			try {
-				Thread.sleep(10);
+				Thread.sleep(100);
 				//System.out.println("now");
 			} catch (InterruptedException e) {
 				e.printStackTrace();
