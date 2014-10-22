@@ -45,9 +45,13 @@ public class Engine {
 
 		boolean isGameUp = true;
 
+		long time = 1;
+
 		while (isGameUp) {
 
 			//delay
+			System.out.println(1000 / (System.currentTimeMillis() - time + Double.MIN_NORMAL));
+			time = System.currentTimeMillis();
 
 			try {
 				Thread.sleep(100);
