@@ -128,16 +128,24 @@ public class Engine {
 
 		if (!gui.movingLeft) return;
 
+        if(myTank.getDirection() != Direction.LEFT) {
+
+            myTank.setDirection(Direction.LEFT);
+            gui.movingLeft = false;
+            return;
+        }
+
 		//todo add check if cell on border
 
 		try {
 
+
             Location tankLocation = myTank.getLocation();
 
-			map.swapCells(tankLocation.getX(), tankLocation.getY(), tankLocation.getX() - 1, tankLocation.getY());
+            map.swapCells(tankLocation.getX(), tankLocation.getY(), tankLocation.getX() - 1, tankLocation.getY());
 
-			myTank.setLocation( new Location(tankLocation.getX() - 1, tankLocation.getY()));
-            myTank.setDirection(Direction.LEFT);
+            myTank.setLocation(new Location(tankLocation.getX() - 1, tankLocation.getY()));
+
 
 		} catch (OutOfBorderException e) {
 			//e.printStackTrace();
@@ -153,15 +161,21 @@ public class Engine {
 
 		if (!gui.movingRight) return;
 
+        if(myTank.getDirection() != Direction.RIGHT) {
+
+            myTank.setDirection(Direction.RIGHT);
+            gui.movingRight = false;
+            return;
+        }
+
 		//todo add check if cell on border
 
 		try {
-            Location tankLocation = myTank.getLocation();
+                Location tankLocation = myTank.getLocation();
 
-			map.swapCells(tankLocation.getX(), tankLocation.getY(), tankLocation.getX() + 1, tankLocation.getY());
+                map.swapCells(tankLocation.getX(), tankLocation.getY(), tankLocation.getX() + 1, tankLocation.getY());
 
-            myTank.setLocation(new Location(tankLocation.getX() + 1, tankLocation.getY()));
-            myTank.setDirection(Direction.RIGHT);
+                myTank.setLocation(new Location(tankLocation.getX() + 1, tankLocation.getY()));
 
 		} catch (OutOfBorderException e) {
 			//e.printStackTrace();
@@ -177,15 +191,23 @@ public class Engine {
 
 		if (!gui.movingUp) return;
 
+        if(myTank.getDirection() != Direction.UP) {
+
+            myTank.setDirection(Direction.UP);
+            gui.movingUp = false;
+            return;
+        }
+
+
 		//todo add check if cell on border
 
 		try {
 
             Location tankLocation = myTank.getLocation();
-			map.swapCells(tankLocation.getX(), tankLocation.getY(), tankLocation.getX(), tankLocation.getY() + 1);
+            map.swapCells(tankLocation.getX(), tankLocation.getY(), tankLocation.getX(), tankLocation.getY() + 1);
 
-            myTank.setLocation( new Location(tankLocation.getX(), tankLocation.getY() + 1));
-            myTank.setDirection(Direction.UP);
+            myTank.setLocation(new Location(tankLocation.getX(), tankLocation.getY() + 1));
+
 		} catch (OutOfBorderException e) {
 			//e.printStackTrace();
 		} catch (NotSwappableObjectException e) {
@@ -201,6 +223,13 @@ public class Engine {
 
 		if (!gui.movingDown) return;
 
+        if(myTank.getDirection() != Direction.DOWN) {
+
+            myTank.setDirection(Direction.DOWN);
+            gui.movingDown = false;
+            return;
+        }
+
 		//todo add check if cell on border
 
 		try {
@@ -210,7 +239,6 @@ public class Engine {
 			map.swapCells(tankLocation.getX(), tankLocation.getY(), tankLocation.getX(), tankLocation.getY() - 1);
 
             myTank.setLocation( new Location(tankLocation.getX(), tankLocation.getY() - 1));
-            myTank.setDirection(Direction.DOWN);
 
 		} catch (OutOfBorderException e) {
 			//e.printStackTrace();
