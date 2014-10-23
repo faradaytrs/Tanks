@@ -22,7 +22,7 @@ public class Engine {
 	private GUI gui;
 	private Map map;
     private Tank myTank;
-    private List<Bullet> bullets = new ArrayList<>();
+    private List<Bullet> bullets = new ArrayList<Bullet>();
 
 	public Engine() {
 
@@ -54,7 +54,7 @@ public class Engine {
 			time = System.currentTimeMillis();
 
 			try {
-				Thread.sleep(100);
+				Thread.sleep(50);
 				//System.out.println("now");
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -115,13 +115,12 @@ public class Engine {
 
         map.deleteElement(bullet.getLocation());
 
-        if( x  > 0 && x < map.width && y > 0 && y  < map.height ) {
-            bullet.setLocation(new Location(x, y));
-            try {
-                map.addElement(bullet);
-            } catch (CellOccupiedException e) {
-                e.printStackTrace();
-            }
+        bullet.setLocation(new Location(x, y));
+        try {
+            map.addElement(bullet);
+        } catch (CellOccupiedException e) {
+            e.printStackTrace();
+
         }
     }
 
