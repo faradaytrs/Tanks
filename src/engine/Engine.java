@@ -6,10 +6,7 @@ import map.Map;
 import map.exceptions.CellOccupiedException;
 import map.exceptions.NotSwappableObjectException;
 import map.exceptions.OutOfBorderException;
-import objects.Bullet;
-import objects.Direction;
-import objects.IGameObject;
-import objects.Tank;
+import objects.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +20,7 @@ public class Engine {
 	private Map map;
     private Tank myTank;
     private List<Bullet> bullets = new ArrayList<Bullet>();
+    private Wall wall1;
 
 	public Engine() {
 
@@ -32,9 +30,12 @@ public class Engine {
 
         myTank = new Tank(new Location(5, 5));
 
+        wall1 = new Wall(new Location(15 ,15));
+
 
         try {
             map.addElement(myTank);
+            map.addElement(wall1);
         } catch (CellOccupiedException e) {
             //e.printStackTrace();
         }
@@ -65,9 +66,9 @@ public class Engine {
 			moveLeft(gui);
 			moveUp(gui);
 			moveRight(gui);
+            for(int i = 0; i < bullets.size(); i ++)
+                moveBullet(bullets.get(i));
             shot(myTank);
-            for(Bullet bullet: bullets)
-                moveBullet(bullet);
 			gui.render();
 
 		}
@@ -81,7 +82,8 @@ public class Engine {
             try {
                 map.addElement(bullet);
             } catch (CellOccupiedException e) {
-                e.printStackTrace();
+                bullets.remove(bullet);
+                //e.printStackTrace();
             }
         }
         gui.shooting = false;
@@ -119,7 +121,8 @@ public class Engine {
         try {
             map.addElement(bullet);
         } catch (CellOccupiedException e) {
-            e.printStackTrace();
+            bullets.remove(bullet);
+            //e.printStackTrace();
 
         }
     }

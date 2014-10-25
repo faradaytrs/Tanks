@@ -73,8 +73,10 @@ public class GUI extends JFrame implements KeyListener {
 						break;
 					case WALL:
 						g.setColor(new Color(0xA1782E));
+                        break;
                     case BULLET:
                         g.setColor(new Color(0x4B35DA));
+                        break;
 
 				}
 

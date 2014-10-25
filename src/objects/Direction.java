@@ -5,6 +5,6 @@ package objects;
  */
 public enum Direction {
 
-    UP, RIGHT, DOWN, LEFT
+    UP, RIGHT, DOWN, LEFT, NO_DIRECTION
 
 }

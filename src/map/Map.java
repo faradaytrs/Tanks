@@ -48,7 +48,7 @@ public class Map {
 			throw new OutOfBorderException();
 		}
 
-		if (field[i2][j2] == Cell.TANK || field[i2][j2] == Cell.WALL) {
+		if (field[i2][j2] != Cell.SPACE) {
 			throw new NotSwappableObjectException();
 		}
 
