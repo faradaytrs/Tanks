@@ -66,9 +66,11 @@ public class Map {
         if( x >= 0 && x < width && y >= 0 && y < height) {
             if (field[x][y] == Cell.SPACE || field[x][y] == Cell.BULLET) {
                 field[x][y] = obj.getType();
-            } else {
-                throw new CellOccupiedException();
-            }
+            } else if(field[x][y] == Cell.TANK){
+                    throw new CellOccupiedException(true);
+                } else {
+                    throw new CellOccupiedException(false);
+                }
         }
     }
 

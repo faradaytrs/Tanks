@@ -5,4 +5,12 @@ package map.exceptions;
  */
 public class CellOccupiedException extends Exception{
 
+    public final boolean isTank;
+
+    public CellOccupiedException(boolean isTank){
+        this.isTank = isTank;
+    }
+
+
+
 }
