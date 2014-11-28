@@ -19,7 +19,7 @@ public class Engine {
 	private GUI gui;
 	private Map map;
     private Tank myTank, enemyTank;
-    private List<Bullet> bullets = new ArrayList<Bullet>();
+    private List<Bullet> bullets = new ArrayList<>();
     private Wall wall1;
 
 	public Engine() {
@@ -86,7 +86,9 @@ public class Engine {
                 map.addElement(bullet);
             } catch (CellOccupiedException e) {
                 bullets.remove(bullet);
-                //e.printStackTrace();
+                if(e.isTank){
+                    map.deleteElement(bullet.getLocation());
+                }
             }
         }
         gui.shooting = false;

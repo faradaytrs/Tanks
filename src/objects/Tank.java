@@ -17,7 +17,7 @@ public class Tank implements IGameObject {
         direction = Direction.UP;
     }
 
-
+    @Override
     public Direction getDirection() {
         return direction;
     }
