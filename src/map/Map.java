@@ -4,6 +4,7 @@ import map.exceptions.NotSwappableObjectException;
 import map.exceptions.OutOfBorderException;
 import map.exceptions.CellOccupiedException;
 import objects.IGameObject;
+import java.util.Random;
 
 /**
  * Created by Andrey Izotov on 20.10.2014.
@@ -21,6 +22,7 @@ public class Map {
 		this.height = height;
 
 		this.field = initMap(width, height);
+        generateMap();
 
 	}
 
@@ -64,12 +66,12 @@ public class Map {
         int x = obj.getLocation().getX();
         int y = obj.getLocation().getY();
         if( x >= 0 && x < width && y >= 0 && y < height) {
-            if (field[x][y] == Cell.SPACE || field[x][y] == Cell.BULLET) {
+            if (field[x][y] == Cell.SPACE ) {
                 field[x][y] = obj.getType();
             } else if(field[x][y] == Cell.TANK){
-                throw new CellOccupiedException(true);
+                throw new CellOccupiedException(Cell.TANK);
             } else {
-                throw new CellOccupiedException(false);
+                throw new CellOccupiedException();
             }
         }
     }
@@ -82,6 +84,18 @@ public class Map {
         }
     }
 
+    private void generateMap(){
 
+        Random random = new Random();
+        final int min = 20, max = 50;
+        int randNum = random.nextInt((max - min) + 1) + min, count = 0;
+        while(count < randNum) {
+            int x = random.nextInt(width), y = random.nextInt(height);
+            if(field[x][y] == Cell.SPACE){
+                field[x][y] = Cell.WALL;
+                count ++;
+            }
+        }
 
+    }
 }
