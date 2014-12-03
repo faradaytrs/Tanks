@@ -26,6 +26,14 @@ public class Map {
 
 	}
 
+    public Map(int width, int height, byte[] numbers){
+        this.width = width;
+        this.height = height;
+
+        this.field = initMap(width, height);
+        setByNumbers(numbers);
+    }
+
 	public Cell[][] getField() {
 		return field;
 	}
@@ -97,5 +105,20 @@ public class Map {
             }
         }
 
+    }
+
+    public byte[] getNumbers(){
+        byte numbers[] = new byte[width * height];
+        for(int i = 0; i < width; i ++)
+            for (int j = 0; j < height; j++)
+                numbers[i * width + j] = (byte)field[i][j].ordinal();
+        return numbers;
+    }
+
+    public void setByNumbers(byte[] numbers){
+        Cell types[] = Cell.values();
+        for(int i = 0; i < width; i ++)
+            for (int j = 0; j < height; j++)
+                field[i][j] = types[numbers[i * width + j]];
     }
 }

@@ -20,6 +20,7 @@ public class Engine {
 	private Map map;
     private Tank myTank, enemyTank;
     private List<Bullet> bullets = new ArrayList<>();
+    private Server server;
 
 	public Engine() {
 
@@ -30,6 +31,8 @@ public class Engine {
         myTank = new Tank(new Location(5, 5));
 
         enemyTank = new Tank(new Location(10, 12));
+
+        server = new Server();
 
         try {
             map.addElement(myTank);
@@ -46,6 +49,8 @@ public class Engine {
             }
         }
 
+        server.sendMap(map);
+
     }
 
 
@@ -55,9 +60,11 @@ public class Engine {
 
 		long time = 1;
 
+        gui.render();
+
 		while (isGameUp) {
 
-			//delay
+			/*//delay
 			System.out.println(1000 / (System.currentTimeMillis() - time + Double.MIN_NORMAL));
 			time = System.currentTimeMillis();
 
@@ -76,7 +83,7 @@ public class Engine {
             for(int i = 0; i < bullets.size(); i ++)
                 moveBullet(bullets.get(i));
             shot(myTank);
-			gui.render();
+			gui.render();*/
 
 		}
 

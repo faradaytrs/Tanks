@@ -22,6 +22,7 @@ public class Client {
         try {
             this.ip = InetAddress.getByName(ipAddress);
             socket = new Socket(ip, port);
+            System.out.println("Connected");
             inputStream = new DataInputStream(socket.getInputStream());
             outputStream = new DataOutputStream(socket.getOutputStream());
         } catch (Exception e) {
@@ -29,5 +30,22 @@ public class Client {
         }
 
     }
+
+    public Map getMap(){
+        byte[] numbers = {};
+        int width = Map.width, height = Map.height;
+        try {
+            width = inputStream.readInt();
+            height = inputStream.readInt();
+            numbers = new byte[width * height];
+            inputStream.readFully(numbers);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new Map(width, height, numbers);
+    }
+
+
+
 
 }

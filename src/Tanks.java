@@ -1,3 +1,4 @@
+import engine.ClientEngine;
 import engine.Engine;
 
 /**
@@ -7,9 +8,15 @@ public class Tanks {
 
 	public static void main(String[] args) {
 
-		Engine engine = new Engine();
+		if(args[0].compareTo("server") == 0){
 
-		engine.start();
+            Engine engine = new Engine();
+            engine.start();
+        }
+        else {
+            ClientEngine engine = new ClientEngine();
+            engine.start();
+        }
 
 	}
 
