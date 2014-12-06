@@ -12,6 +12,11 @@ public class Bullet implements IGameObject{
 
     private Direction direction;
 
+    public Bullet(){
+        location = new Location(0,0);
+        direction = Direction.NO_DIRECTION;
+    }
+
     public Bullet(Location location, Direction direction) {
         this.location = location;
         this.direction = direction;

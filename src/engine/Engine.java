@@ -7,6 +7,9 @@ import map.exceptions.CellOccupiedException;
 import map.exceptions.NotSwappableObjectException;
 import map.exceptions.OutOfBorderException;
 import objects.*;
+import socket.Client;
+import socket.Server;
+import socket.SocketConnection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,80 +19,30 @@ import java.util.List;
  */
 public class Engine {
 
-	private GUI gui;
-	private Map map;
-    private Tank myTank, enemyTank;
-    private List<Bullet> bullets = new ArrayList<>();
-    private Server server;
+	protected GUI gui;
+    protected Map map;
+    protected Tank myTank, enemyTank;
+    protected List<Bullet> bullets = new ArrayList<>();
+    protected Server server;
+    protected Client client;
 
-	public Engine() {
 
-		map = new Map(20, 20);
-
-		gui = new GUI(map);
-
-        myTank = new Tank(new Location(5, 5));
-
-        enemyTank = new Tank(new Location(10, 12));
-
-        server = new Server();
-
+    protected void updateObject(IGameObject obj, SocketConnection socket){
+        map.deleteElement(obj.getLocation());
+        socket.getObject(obj);
         try {
-            map.addElement(myTank);
-            map.addElement(enemyTank);
+            map.addElement(obj);
         } catch (CellOccupiedException e) {
-            if(e.isWall){
-                map.deleteElement(myTank.getLocation());
-                map.deleteElement(enemyTank.getLocation());
-                try{
-                    map.addElement(myTank);
-                    map.addElement(enemyTank);
+            if( obj instanceof Bullet) {
+                bullets.remove((Bullet) obj);
+                if(e.isTank){
+                    map.deleteElement(obj.getLocation());
                 }
-                catch (CellOccupiedException e1){}
             }
         }
-
-        server.sendMap(map);
-
     }
 
-
-	public void start() {
-
-		boolean isGameUp = true;
-
-		long time = 1;
-
-        gui.render();
-
-		while (isGameUp) {
-
-			/*//delay
-			System.out.println(1000 / (System.currentTimeMillis() - time + Double.MIN_NORMAL));
-			time = System.currentTimeMillis();
-
-			try {
-				Thread.sleep(50);
-				//System.out.println("now");
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
-			//change something on map
-			moveDown(gui);
-			moveLeft(gui);
-			moveUp(gui);
-			moveRight(gui);
-            for(int i = 0; i < bullets.size(); i ++)
-                moveBullet(bullets.get(i));
-            shot(myTank);
-			gui.render();*/
-
-		}
-
-	}
-
-    private void shot(Tank tank){
+    protected void shot(Tank tank){
         if(gui.shooting){
             Bullet bullet = new Bullet(checkDirection(tank), tank.getDirection());
             bullets.add(bullet);
@@ -106,7 +59,7 @@ public class Engine {
 
     }
 
-    private Location checkDirection(IGameObject obj){
+    protected Location checkDirection(IGameObject obj){
         int dx = 0, dy = 0;
         switch(obj.getDirection()){
             case UP:
@@ -126,7 +79,7 @@ public class Engine {
     }
 
 
-    private void moveBullet(Bullet bullet){
+    protected void moveBullet(Bullet bullet){
 
         int x = checkDirection(bullet).getX();
         int y = checkDirection(bullet).getY();
@@ -146,7 +99,7 @@ public class Engine {
         }
     }
 
-	private void moveLeft(GUI gui) {
+	protected void moveLeft(GUI gui) {
 
 		if (!gui.movingLeft) return;
 
@@ -179,7 +132,7 @@ public class Engine {
 
 	}
 
-	private void moveRight(GUI gui) {
+	protected void moveRight(GUI gui) {
 
 		if (!gui.movingRight) return;
 
@@ -209,7 +162,7 @@ public class Engine {
 
 	}
 
-	private void moveUp(GUI gui) {
+	protected void moveUp(GUI gui) {
 
 		if (!gui.movingUp) return;
 
@@ -241,7 +194,7 @@ public class Engine {
 
 	}
 
-	private void moveDown(GUI gui) {
+	protected void moveDown(GUI gui) {
 
 		if (!gui.movingDown) return;
 

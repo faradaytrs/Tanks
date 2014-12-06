@@ -1,6 +1,10 @@
-package engine;
+package socket;
 
+import map.Cell;
+import map.Location;
 import map.Map;
+import objects.Direction;
+import objects.IGameObject;
 
 import java.net.*;
 import java.io.*;
@@ -8,17 +12,14 @@ import java.io.*;
 /**
  * Created by андрей on 02.12.2014.
  */
-public class Server {
+public class Server extends SocketConnection {
 
     private ServerSocket serverSocket;
-    private Socket socket;
-    private DataInputStream inputStream;
-    private DataOutputStream outputStream;
 
     public static final int port = 5000;
 
-    public Server(){
-        try{
+    public Server() {
+        try {
             serverSocket = new ServerSocket(port);
             System.out.println("Server created");
             socket = serverSocket.accept();
@@ -26,12 +27,12 @@ public class Server {
             inputStream = new DataInputStream(socket.getInputStream());
             outputStream = new DataOutputStream(socket.getOutputStream());
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void sendMap(Map map){
+    public void sendMap(Map map) {
         byte[] numbers = map.getNumbers();
         try {
             outputStream.writeInt(Map.width);

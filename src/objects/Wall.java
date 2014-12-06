@@ -12,6 +12,10 @@ public class Wall implements IGameObject {
 
     private final Direction direction = Direction.NO_DIRECTION;
 
+    public Wall(){
+        location = new Location(0,0);
+    }
+
     public Wall(Location location) {
         this.location = location;
     }
@@ -34,5 +38,10 @@ public class Wall implements IGameObject {
     @Override
     public Direction getDirection() {
         return direction;
+    }
+
+    @Override
+    public void setDirection(Direction direction) {
+        System.out.println("fixed location:" + direction.toString());
     }
 }

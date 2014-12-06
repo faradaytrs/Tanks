@@ -11,6 +11,11 @@ public class Tank implements IGameObject {
 
     private Direction direction;
 
+    public Tank(){
+        location = new Location(0,0);
+        direction = Direction.NO_DIRECTION;
+    }
+
     public Tank(Location location){
 
         setLocation(location);

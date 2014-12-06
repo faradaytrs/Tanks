@@ -1,6 +1,9 @@
-package engine;
+package socket;
 
+import map.Location;
 import map.Map;
+import objects.Direction;
+import objects.IGameObject;
 
 import java.io.*;
 import java.net.*;
@@ -8,12 +11,10 @@ import java.net.*;
 /**
  * Created by андрей on 02.12.2014.
  */
-public class Client {
+public class Client extends SocketConnection {
 
-    private Socket socket;
+
     private InetAddress ip;
-    private DataInputStream inputStream;
-    private DataOutputStream outputStream;
 
     public static final String ipAddress = "127.0.0.1";
     public static final int port = 5000;
@@ -44,8 +45,6 @@ public class Client {
         }
         return new Map(width, height, numbers);
     }
-
-
 
 
 }
