@@ -38,4 +38,21 @@ public class SocketConnection {
             e.printStackTrace();
         }
     }
+
+    public boolean isEnemyTankShooting() {
+        try{
+            return inputStream.readBoolean();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void sendMyTankShooting(boolean flag){
+        try{
+            outputStream.writeBoolean(flag);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

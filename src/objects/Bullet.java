@@ -9,17 +9,19 @@ import map.Location;
 public class Bullet implements IGameObject{
 
     private Location location;
-
+    public final boolean isMine;
     private Direction direction;
 
     public Bullet(){
         location = new Location(0,0);
         direction = Direction.NO_DIRECTION;
+        isMine = false;
     }
 
-    public Bullet(Location location, Direction direction) {
+    public Bullet(Location location, Direction direction, boolean flag) {
         this.location = location;
         this.direction = direction;
+        isMine = flag;
     }
 
     public Direction getDirection() {

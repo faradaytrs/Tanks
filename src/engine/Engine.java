@@ -26,7 +26,6 @@ public class Engine {
     protected Server server;
     protected Client client;
 
-
     protected void updateObject(IGameObject obj, SocketConnection socket){
         map.deleteElement(obj.getLocation());
         socket.getObject(obj);
@@ -37,14 +36,15 @@ public class Engine {
                 bullets.remove((Bullet) obj);
                 if(e.isTank){
                     map.deleteElement(obj.getLocation());
+
                 }
             }
         }
     }
 
     protected void shot(Tank tank){
-        if(gui.shooting){
-            Bullet bullet = new Bullet(checkDirection(tank), tank.getDirection());
+        if(tank.isShooting()){
+            Bullet bullet = new Bullet(checkDirection(tank), tank.getDirection(), tank.equals(myTank));
             bullets.add(bullet);
             try {
                 map.addElement(bullet);
@@ -52,10 +52,14 @@ public class Engine {
                 bullets.remove(bullet);
                 if(e.isTank){
                     map.deleteElement(bullet.getLocation());
+                    if(bullet.isMine){ enemyTank.destroyed(); }
+                    else{ myTank.destroyed(); }
                 }
             }
+            tank.setShooting(false);
+            GUI.shooting = false;
         }
-        gui.shooting = false;
+
 
     }
 
@@ -93,6 +97,8 @@ public class Engine {
             bullets.remove(bullet);
             if(e.isTank){
                 map.deleteElement(bullet.getLocation());
+                if(bullet.isMine){ enemyTank.destroyed(); }
+                else{ myTank.destroyed(); }
             }
             //e.printStackTrace();
 

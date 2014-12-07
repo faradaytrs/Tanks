@@ -4,6 +4,8 @@ import gui.GUI;
 import objects.Tank;
 import socket.Client;
 
+import java.awt.event.WindowEvent;
+
 /**
  * Created by андрей on 07.12.2014.
  */
@@ -50,9 +52,27 @@ public class ClientEngine extends Engine {
 
             for(int i = 0; i < bullets.size(); i ++)
                 moveBullet(bullets.get(i));
+
+            myTank.setShooting(GUI.shooting);
+            client.sendMyTankShooting(GUI.shooting);
+            enemyTank.setShooting(client.isEnemyTankShooting());
             shot(myTank);
+            shot(enemyTank);
+
             gui.render();
+
+            if(!myTank.isAlive()){
+                isGameUp = false;
+                System.out.println("You lose!");
+            }
+
+            if(!enemyTank.isAlive()){
+                isGameUp = false;
+                System.out.println("You win!");
+            }
+
         }
+        gui.dispatchEvent(new WindowEvent(gui, WindowEvent.WINDOW_CLOSING));
 
     }
 }
