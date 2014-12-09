@@ -46,7 +46,6 @@ public class ClientEngine extends Engine {
             moveLeft(gui);
             moveUp(gui);
             moveRight(gui);
-
             updateObject(enemyTank, client);
             client.sendObject(myTank);
 

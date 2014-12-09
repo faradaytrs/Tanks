@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by Andrey Izotov on 20.10.2014.
  */
-public class Engine {
+public abstract class Engine {
 
 	protected GUI gui;
     protected Map map;
