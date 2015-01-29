@@ -17,7 +17,9 @@ public class ClientEngine extends Engine {
         gui = new GUI(map);
         myTank = new Tank();
         enemyTank = new Tank();
+        client.getData();
         client.getObject(myTank);
+        client.getData();
         client.getObject(enemyTank);
         System.out.println("Build");
     }
@@ -46,15 +48,20 @@ public class ClientEngine extends Engine {
             moveLeft(gui);
             moveUp(gui);
             moveRight(gui);
-            updateObject(enemyTank, client);
+
             client.sendObject(myTank);
+            myTank.setShooting(GUI.shooting);
+            client.sendMyTankShooting(GUI.shooting);
+
+            client.getData();
+            client.sendData();
+
+            updateObject(enemyTank, client);
+            enemyTank.setShooting(client.isEnemyTankShooting());
 
             for(int i = 0; i < bullets.size(); i ++)
                 moveBullet(bullets.get(i));
 
-            myTank.setShooting(GUI.shooting);
-            client.sendMyTankShooting(GUI.shooting);
-            enemyTank.setShooting(client.isEnemyTankShooting());
             shot(myTank);
             shot(enemyTank);
 

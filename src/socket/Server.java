@@ -26,7 +26,8 @@ public class Server extends SocketConnection {
             System.out.println("Connection");
             inputStream = new DataInputStream(socket.getInputStream());
             outputStream = new DataOutputStream(socket.getOutputStream());
-
+            outputBuffer = new byte[4];
+            inputBuffer = new byte[4];
         } catch (Exception e) {
             e.printStackTrace();
         }

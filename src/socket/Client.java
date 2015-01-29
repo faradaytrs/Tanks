@@ -16,7 +16,7 @@ public class Client extends SocketConnection {
 
     private InetAddress ip;
 
-    public static final String ipAddress = "127.0.0.1";
+    public static final String ipAddress = "25.2.250.58";
     public static final int port = 5000;
 
     public Client() {
@@ -26,6 +26,8 @@ public class Client extends SocketConnection {
             System.out.println("Connected");
             inputStream = new DataInputStream(socket.getInputStream());
             outputStream = new DataOutputStream(socket.getOutputStream());
+            outputBuffer = new byte[4];
+            inputBuffer = new byte[4];
         } catch (Exception e) {
             e.printStackTrace();
         }

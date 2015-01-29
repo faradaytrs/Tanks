@@ -42,7 +42,9 @@ public class ServerEngine extends Engine {
 
         server.sendMap(map);
         server.sendObject(enemyTank);
+        server.sendData();
         server.sendObject(myTank);
+        server.sendData();
         System.out.println("Build");
     }
 
@@ -73,14 +75,18 @@ public class ServerEngine extends Engine {
             moveRight(gui);
 
             server.sendObject(myTank);
+            myTank.setShooting(GUI.shooting);
+            server.sendMyTankShooting(GUI.shooting);
+            
+            server.sendData();
+            server.getData();
+            
             updateObject(enemyTank, server);
+            enemyTank.setShooting(server.isEnemyTankShooting());            
 
             for(int i = 0; i < bullets.size(); i ++)
                 moveBullet(bullets.get(i));
 
-            myTank.setShooting(GUI.shooting);
-            enemyTank.setShooting(server.isEnemyTankShooting());
-            server.sendMyTankShooting(GUI.shooting);
             shot(myTank);
             shot(enemyTank);
 

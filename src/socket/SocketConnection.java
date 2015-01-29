@@ -17,41 +17,43 @@ public class SocketConnection {
     protected Socket socket;
     protected DataInputStream inputStream;
     protected DataOutputStream outputStream;
+    protected byte[] outputBuffer;
+    protected byte[] inputBuffer;
 
     public void sendObject(IGameObject obj){
-        try{
-            outputStream.writeInt(obj.getLocation().getX());
-            outputStream.writeInt(obj.getLocation().getY());
-            outputStream.writeInt(obj.getDirection().ordinal());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        outputBuffer[0] = (byte) obj.getLocation().getX();
+        outputBuffer[1] = (byte) obj.getLocation().getY();
+        outputBuffer[2] = (byte) obj.getDirection().ordinal();
+
     }
 
     public void getObject(IGameObject obj){
-        try{
-            int x = inputStream.readInt();
-            int y = inputStream.readInt();
-            obj.setLocation(new Location(x, y));
-            obj.setDirection(Direction.values()[inputStream.readInt()]);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        int x = inputBuffer[0];
+        int y = inputBuffer[1];
+        obj.setDirection((Direction.values()[inputBuffer[2]]));
+        obj.setLocation(new Location(x, y));
     }
 
     public boolean isEnemyTankShooting() {
-        try{
-            return inputStream.readBoolean();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
+        return (inputBuffer[3] == 1) ? true : false;
     }
 
     public void sendMyTankShooting(boolean flag){
+        outputBuffer[3] = (byte) (flag ? 1 : 0);
+    }
+
+    public void sendData(){
         try{
-            outputStream.writeBoolean(flag);
-        } catch (IOException e) {
+            outputStream.write(outputBuffer);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getData(){
+        try{
+            inputStream.readFully(inputBuffer);
+        } catch(Exception e){
             e.printStackTrace();
         }
     }
