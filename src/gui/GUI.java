@@ -38,13 +38,10 @@ public class GUI extends JFrame implements KeyListener {
 		setVisible(true);
 
 		addKeyListener(this);
-
 	}
 
 	public void paint(Graphics g) {
-
 		renderMap(map, g);
-
 	}
 
 	public void render() {
@@ -125,6 +122,14 @@ public class GUI extends JFrame implements KeyListener {
 
 
 	}
+
+    public void printWinMessage(){
+        JOptionPane.showMessageDialog(this, "You win!");
+    }
+
+    public void printLoseMessage(){
+        JOptionPane.showMessageDialog(this, "You lose!");
+    }
 
 	@Override
 	public void keyReleased(KeyEvent e) {

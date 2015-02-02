@@ -57,4 +57,12 @@ public class SocketConnection {
             e.printStackTrace();
         }
     }
+
+    public void closeConnection(){
+        try {
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

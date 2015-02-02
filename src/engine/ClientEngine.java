@@ -1,9 +1,11 @@
 package engine;
 
 import gui.GUI;
+import main_menu.Menu;
 import objects.Tank;
 import socket.Client;
 
+import javax.swing.*;
 import java.awt.event.WindowEvent;
 
 /**
@@ -11,8 +13,9 @@ import java.awt.event.WindowEvent;
  */
 public class ClientEngine extends Engine {
 
-    public ClientEngine(){
-        client = new Client();
+    public ClientEngine(Menu menuFrame,String ipAddress){
+        this.menuFrame = menuFrame;
+        client = new Client(ipAddress);
         map = client.getMap();
         gui = new GUI(map);
         myTank = new Tank();
@@ -69,16 +72,17 @@ public class ClientEngine extends Engine {
 
             if(!myTank.isAlive()){
                 isGameUp = false;
-                System.out.println("You lose!");
+                gui.printLoseMessage();
             }
 
             if(!enemyTank.isAlive()){
                 isGameUp = false;
-                System.out.println("You win!");
+                gui.printWinMessage();
             }
 
         }
-        gui.dispatchEvent(new WindowEvent(gui, WindowEvent.WINDOW_CLOSING));
-
+        client.closeConnection();
+        gui.dispose();
+        menuFrame.makeFrameVisible();
     }
 }

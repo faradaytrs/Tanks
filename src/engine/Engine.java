@@ -1,6 +1,7 @@
 package engine;
 
 import gui.GUI;
+import main_menu.Menu;
 import map.Location;
 import map.Map;
 import map.exceptions.CellOccupiedException;
@@ -11,6 +12,7 @@ import socket.Client;
 import socket.Server;
 import socket.SocketConnection;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,7 @@ public abstract class Engine {
     protected List<Bullet> bullets = new ArrayList<>();
     protected Server server;
     protected Client client;
+    protected Menu menuFrame;
 
     protected void updateObject(IGameObject obj, SocketConnection socket){
         map.deleteElement(obj.getLocation());

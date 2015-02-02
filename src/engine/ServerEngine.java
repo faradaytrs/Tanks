@@ -1,12 +1,14 @@
 package engine;
 
 import gui.GUI;
+import main_menu.Menu;
 import map.Location;
 import map.Map;
 import map.exceptions.CellOccupiedException;
 import objects.Tank;
 import socket.Server;
 
+import javax.swing.*;
 import java.awt.event.WindowEvent;
 
 /**
@@ -14,7 +16,9 @@ import java.awt.event.WindowEvent;
  */
 public class ServerEngine extends Engine {
 
-    public ServerEngine() {
+    public ServerEngine(Menu menuFrame) {
+        this.menuFrame = menuFrame;
+
         map = new Map(20, 20);
 
         gui = new GUI(map);
@@ -94,14 +98,16 @@ public class ServerEngine extends Engine {
 
             if(!myTank.isAlive()){
                 isGameUp = false;
-                System.out.println("You lose!");
+                gui.printLoseMessage();
             }
 
             if(!enemyTank.isAlive()){
                 isGameUp = false;
-                System.out.println("You win!");
+                gui.printWinMessage();
             }
         }
-        gui.dispatchEvent(new WindowEvent(gui, WindowEvent.WINDOW_CLOSING));
+        server.closeConnection();
+        gui.dispose();
+        menuFrame.makeFrameVisible();
     }
 }

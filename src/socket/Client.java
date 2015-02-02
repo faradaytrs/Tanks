@@ -16,10 +16,9 @@ public class Client extends SocketConnection {
 
     private InetAddress ip;
 
-    public static final String ipAddress = "25.2.250.58";
-    public static final int port = 5000;
+    public static final int port = 12432;
 
-    public Client() {
+    public Client(String ipAddress) {
         try {
             this.ip = InetAddress.getByName(ipAddress);
             socket = new Socket(ip, port);

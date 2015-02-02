@@ -16,7 +16,7 @@ public class Server extends SocketConnection {
 
     private ServerSocket serverSocket;
 
-    public static final int port = 5000;
+    public static final int port = 12432;
 
     public Server() {
         try {
@@ -39,6 +39,15 @@ public class Server extends SocketConnection {
             outputStream.writeInt(Map.width);
             outputStream.writeInt(Map.height);
             outputStream.write(numbers);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void closeConnection(){
+        super.closeConnection();
+        try {
+            serverSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
